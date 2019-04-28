@@ -32,7 +32,55 @@
        return ans;
     }
 
-自己写的时候把问题复杂化了，尝试用二分法找最大的第三个位置，在计算区间内埋伏方案数量时用的C（n,3）（错误），应为C（n,2），因第一个区间此时已确定。
+
+参考答案之后自己写了一遍
+```
+#include<iostream>
+#include<vector>
+using namespace std;
+vector<int>coordinate;
+
+int main()
+{
+	int n, d;
+	int number, solution = 0, length;
+	int mod = 99997867;
+
+	cin >> n >> d;
+
+	for (int i = 0; i < n; i++)
+	{
+		cin >> number;
+		coordinate.push_back(number);
+	}
+
+	for (int i = 0; i < n-2; i++)
+	{
+		int one, three;
+		one = coordinate[i];
+		int j = i + 1;
+		do{			
+			j++;
+		}while (j<n && coordinate[j] - one <= d);
+		j--;		
+		length = j - i + 1;
+
+		if (length<3)
+			continue;
+		else
+		{
+			length--;
+			solution = (solution + length*(length - 1) / 2) % mod;
+		}		
+	}
+
+	cout << solution << endl;
+	system("pause");
+	return 0;
+}
+```
+
+自己机试的时候把问题复杂化了，尝试用二分法找最大的第三个位置，在计算区间内埋伏方案数量时用的C（n,3）（错误），应为C（n,2），因第一个区间此时已确定。
 
 ```
 //原解答内存超出。算法复杂度过大
